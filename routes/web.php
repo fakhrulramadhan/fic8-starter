@@ -13,23 +13,32 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//daftarin dulu urlnya, urlnya yang ini get(/)
+//daftarin dulu url awalnya, urlnya yang ini get(/) ke halaman login
 Route::get('/', function () {
-    return view('pages.app.dashboard-siakad', ['type_menu' => '']);
+    return view('pages.auth.auth-login');
 });
 
-Route::get('/login', function () {
-    return view('pages.auth.auth-login');
-})->name('login');
+//kalau sukses auth
+Route::middleware(['auth'])->group(function () {
 
-Route::get('/register', function () {
-    return view('pages.auth.auth-register');
-})->name('register'); //name = nama routenya php aritsan route:list
+    Route::get('home', function() {
+        return view('pages.app.dashboard-siakad', ['type_menu' => '']);
+    })->name('home');
 
-Route::get('/forgot', function () {
-    return view('pages.auth.auth-forgot-password');
-})->name('forgot');
+});
 
-Route::get('/reset-password', function () {
-    return view('pages.auth.auth-reset-password');
-})->name('reset-password');
+// Route::get('/login', function () {
+//     return view('pages.auth.auth-login');
+// })->name('login');
+
+// Route::get('/register', function () {
+//     return view('pages.auth.auth-register');
+// })->name('register'); //name = nama routenya php aritsan route:list
+
+// Route::get('/forgot', function () {
+//     return view('pages.auth.auth-forgot-password');
+// })->name('forgot');
+
+// Route::get('/reset-password', function () {
+//     return view('pages.auth.auth-reset-password');
+// })->name('reset-password');

@@ -15,22 +15,31 @@
         </div>
 
         <div class="card-body">
+            {{-- kalau email password cocok, langsung ke halaman home (dashboard) --}}
             <form method="POST"
-                action="#"
+                action="{{ route('login') }}"
                 class="needs-validation"
                 novalidate="">
+                @csrf
+                {{-- @error cek kembalian dari fortify, terjadi kalau error --}}
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input id="email"
                         type="email"
-                        class="form-control"
+                        class="form-control @error('email') is-invalid
+
+                        @enderror"
                         name="email"
                         tabindex="1"
-                        required
+
                         autofocus>
-                    <div class="invalid-feedback">
-                        Please fill in your email
-                    </div>
+
+                        @error('email')
+                        <div class="invalid-feedback">
+                            {{-- Please fill in your email --}}
+                            {{  $message    }}
+                        </div>
+                        @enderror
                 </div>
 
                 <div class="form-group">
@@ -46,13 +55,18 @@
                     </div>
                     <input id="password"
                         type="password"
-                        class="form-control"
+                        class="form-control @error('password') is-invalid
+
+                        @enderror"
                         name="password"
                         tabindex="2"
-                        required>
-                    <div class="invalid-feedback">
-                        please fill in your password
-                    </div>
+                        >
+                    @error('password')
+                        <div class="invalid-feedback">
+                            {{  $message }}
+                        </div>
+                    @enderror
+
                 </div>
 
                 <div class="form-group">
@@ -75,21 +89,7 @@
                     </button>
                 </div>
             </form>
-            <div class="mt-4 mb-3 text-center">
-                <div class="text-job text-muted">Login With Social</div>
-            </div>
-            <div class="row sm-gutters">
-                <div class="col-6">
-                    <a class="btn btn-block btn-social btn-facebook">
-                        <span class="fab fa-facebook"></span> Facebook
-                    </a>
-                </div>
-                <div class="col-6">
-                    <a class="btn btn-block btn-social btn-twitter">
-                        <span class="fab fa-twitter"></span> Twitter
-                    </a>
-                </div>
-            </div>
+
 
         </div>
     </div>
